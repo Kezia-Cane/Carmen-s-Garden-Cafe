@@ -1,26 +1,177 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Brand Colors */
+  --color-forest-green: #0d2d20;
+  --color-emerald: #164032;
+  --color-gold: #f2e094;
+  --color-muted-gold: #dcbc67;
+  --color-deep-bronze: #544712;
+
+  /* Typography - Fixed variable names to prevent circular reference with Next.js fonts */
+  --font-cinzel: var(--font-cinzel-custom), "Cinzel Decorative", serif;
+  --font-seasons: "The Seasons", "Playfair Display", serif;
+  --font-montserrat: var(--font-montserrat-custom), "Montserrat", sans-serif;
+  --font-signature: "Signature", "Great Vibes", cursive;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  html,
+  body {
+    background-color: var(--color-forest-green);
+    color: var(--color-muted-gold);
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 10px rgba(242, 224, 148, 0.4), 0 0 20px rgba(242, 224, 148, 0.2);
+  }
+}
+
+/* ================================ */
+/* Botanical Button — Primary CTA   */
+/* ================================ */
+.botanical-btn {
+  position: relative;
+  display: inline-block;
+  padding: 18px 52px;
+  background: var(--color-gold);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-forest-green);
+  cursor: pointer;
+  border: 1px solid var(--color-gold);
+  border-radius: 10px;
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.25));
+  transition: all 0.3s ease;
+  text-decoration: none;
+  text-align: center;
+}
+
+.botanical-btn:hover {
+  border-color: var(--color-muted-gold);
+  background: linear-gradient(85deg,
+      var(--color-gold),
+      #f5e8a0,
+      var(--color-muted-gold),
+      #e8d080,
+      var(--color-gold));
+  background-size: 300% 100%;
+  animation: botanical-wind 3s ease-in-out infinite;
+}
+
+@keyframes botanical-wind {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Leaf Icon 1 — Right side */
+.botanical-icon-1 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25px;
+  transform-origin: 0 0;
+  transform: rotate(10deg);
+  transition: all 0.5s ease-in-out;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3));
+  color: var(--color-forest-green);
+}
+
+.botanical-btn:hover .botanical-icon-1 {
+  animation: botanical-sway-1 3s cubic-bezier(0.52, 0, 0.58, 1) infinite;
+  transform: rotate(10deg);
+}
+
+@keyframes botanical-sway-1 {
+  0% {
+    transform: rotate(10deg);
+  }
+
+  50% {
+    transform: rotate(-5deg);
+  }
+
+  100% {
+    transform: rotate(10deg);
+  }
+}
+
+/* Leaf Icon 2 — Center-left, small */
+.botanical-icon-2 {
+  position: absolute;
+  top: 0;
+  left: 25px;
+  width: 12px;
+  transform-origin: 50% 0;
+  transform: rotate(10deg);
+  transition: all 1s ease-in-out;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.4));
+  color: var(--color-forest-green);
+}
+
+.botanical-btn:hover .botanical-icon-2 {
+  animation: botanical-sway-2 3s cubic-bezier(0.52, 0, 0.58, 1) 1s infinite;
+  transform: rotate(0);
+}
+
+@keyframes botanical-sway-2 {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(15deg);
+  }
+
+  100% {
+    transform: rotate(0);
+  }
+}
+
+/* Leaf Icon 3 — Left side, medium */
+.botanical-icon-3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18px;
+  transform-origin: 50% 0;
+  transform: rotate(-5deg);
+  transition: all 1s ease-in-out;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.4));
+  color: var(--color-forest-green);
+}
+
+.botanical-btn:hover .botanical-icon-3 {
+  animation: botanical-sway-3 2s cubic-bezier(0.52, 0, 0.58, 1) 1s infinite;
+  transform: rotate(0);
+}
+
+@keyframes botanical-sway-3 {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(-5deg);
+  }
+
+  100% {
+    transform: rotate(0);
+  }
 }
