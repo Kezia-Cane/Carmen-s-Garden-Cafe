@@ -25,9 +25,9 @@ const useSectionAnim = (scrollYProgress: MotionValue<number>, start: number, end
 
 // 0–20% scroll
 export function HeroSection({ scrollProgress, isPreloaderDone = true }: { scrollProgress: MotionValue<number>, isPreloaderDone?: boolean }) {
-    // Title fades in on early scroll (0 to 2%), holds during the explosion, then fades out at 20%
-    const textOpacity = useTransform(scrollProgress, [0, 0.02, 0.15, 0.20], [0, 1, 1, 0]);
-    const textY = useTransform(scrollProgress, [0, 0.02, 0.15, 0.20], [30, 0, 0, -50]);
+    // Title fades in on early scroll (0 to 2%), holds during the explosion, then fades out later at 35% for readability
+    const textOpacity = useTransform(scrollProgress, [0, 0.02, 0.25, 0.35], [0, 1, 1, 0]);
+    const textY = useTransform(scrollProgress, [0, 0.02, 0.25, 0.35], [30, 0, 0, -50]);
 
     // Scroll indicator fades out slowly as they start scrolling between 0-5%
     const indicatorOpacity = useTransform(scrollProgress, [0, 0.05], [1, 0]);

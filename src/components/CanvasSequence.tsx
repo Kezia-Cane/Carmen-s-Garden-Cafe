@@ -23,23 +23,66 @@ export default function CanvasSequence({ containerRef }: { containerRef: RefObje
     const fadeOutOpacity = useTransform(scrollYProgress, [0.85, 1], [1, 0]);
 
     useEffect(() => {
-        // 1. Preload all images
-        const loadImages = async () => {
-            const promises = Array.from({ length: FRAME_COUNT }).map((_, i) => {
+        let isMobile = false;
+
+        // Simple client-side detection for mobile sizing to swap assets
+        if (typeof window !== 'undefined') {
+            isMobile = window.innerWidth <= 768;
+        }
+
+        // 1. Initial critical path preload (first 15 frames)
+        const CRITICAL_FRAMES = 15;
+
+        const loadInitialImages = async () => {
+            const promises = Array.from({ length: CRITICAL_FRAMES }).map((_, i) => {
                 return new Promise<HTMLImageElement>((resolve) => {
                     const img = new Image();
-                    // Pad number with leading zeroes
                     const paddedIndex = i.toString().padStart(3, "0");
-                    img.src = `/sequence/5a397c44-049b-4726-8441-d86e3a659452_${paddedIndex}.webp`;
+                    // Swap to mobile asset if detected
+                    const suffix = isMobile ? "_mobile" : "";
+                    img.src = `/sequence/5a397c44-049b-4726-8441-d86e3a659452_${paddedIndex}${suffix}.webp`;
+
+                    // We need to preserve the array index for rendering
                     img.onload = () => resolve(img);
                 });
             });
 
-            imagesRef.current = await Promise.all(promises);
+            const loadedInitial = await Promise.all(promises);
+
+            // Safely update the ref array
+            loadedInitial.forEach((img, index) => {
+                imagesRef.current[index] = img;
+            });
+
             setImagesLoaded(true);
+
+            // 2. Lazy load the remaining frames in the background
+            lazyLoadRemaining(isMobile);
         };
 
-        loadImages();
+        const lazyLoadRemaining = (isMobile: boolean) => {
+            // Use requestIdleCallback if available, otherwise fallback to setTimeout
+            const loadChunk = () => {
+                for (let i = CRITICAL_FRAMES; i < FRAME_COUNT; i++) {
+                    const img = new Image();
+                    const paddedIndex = i.toString().padStart(3, "0");
+                    const suffix = isMobile ? "_mobile" : "";
+                    img.src = `/sequence/5a397c44-049b-4726-8441-d86e3a659452_${paddedIndex}${suffix}.webp`;
+
+                    img.onload = () => {
+                        imagesRef.current[i] = img;
+                    };
+                }
+            };
+
+            if ('requestIdleCallback' in window) {
+                (window as any).requestIdleCallback(() => loadChunk());
+            } else {
+                setTimeout(loadChunk, 500);
+            }
+        };
+
+        loadInitialImages();
     }, []);
 
     // 2. Draw initial frame when loaded
