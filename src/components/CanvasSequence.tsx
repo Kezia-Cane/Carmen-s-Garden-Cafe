@@ -114,7 +114,13 @@ export default function CanvasSequence({ containerRef }: { containerRef: RefObje
         // Calculate aspect-ratio-preserving fit that covers the canvas (like object-fit: cover)
         // Or, for this specific art style ("floating in botanical void"), "contain" might be safer
         // The instructions say "centered and scaled to fit while preserving aspect ratio." Let's do object-fit: cover equivalent logic so it's truly full background:
-        const scale = Math.max(canvas.width / img.width, canvas.height / img.height);
+        let scale = Math.max(canvas.width / img.width, canvas.height / img.height);
+
+        // Slightly zoom out the image on narrow screens (mobile) to fit more of the cup
+        if (canvas.width <= 768) {
+            scale *= 0.85;
+        }
+
         const x = canvas.width / 2 - (img.width / 2) * scale;
         const y = canvas.height / 2 - (img.height / 2) * scale;
 
@@ -152,6 +158,9 @@ export default function CanvasSequence({ containerRef }: { containerRef: RefObje
             />
             {/* Optional: subtle radial gradient overlay to soften edges leading into the dark void */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,theme(colors.forest-green)_100%)] opacity-80" />
+
+            {/* Dark overlay specifically for mobile readability, invisible on md+ screens */}
+            <div className="absolute inset-0 bg-black/60 md:hidden pointer-events-none" />
         </motion.div>
     );
 }

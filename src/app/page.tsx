@@ -28,7 +28,6 @@ export default function Home() {
   return (
     <main className="relative bg-forest-green text-muted-gold min-h-screen">
       <Preloader onComplete={() => setIsPreloaderDone(true)} />
-      <Navbar isPreloaderDone={isPreloaderDone} />
 
       {/* The sticky background canvas that plays the image sequence */}
       <CanvasSequence containerRef={containerRef} />

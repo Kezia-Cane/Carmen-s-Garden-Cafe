@@ -72,9 +72,9 @@ export function HeroSection({ scrollProgress, isPreloaderDone = true }: { scroll
     );
 }
 
-// 20–45% scroll
+// 40–55% scroll
 export function ArtisanalRevealSection({ scrollProgress }: { scrollProgress: MotionValue<number> }) {
-    const { opacity, y } = useSectionAnim(scrollProgress, 0.20, 0.45);
+    const { opacity, y } = useSectionAnim(scrollProgress, 0.40, 0.55);
 
     return (
         <motion.section
@@ -87,16 +87,16 @@ export function ArtisanalRevealSection({ scrollProgress }: { scrollProgress: Mot
                     Purity in every element.
                 </h2>
                 <p className="font-montserrat text-lg leading-relaxed text-muted-gold/90">
-                    Sustainably sourced, family-farmed beans and artisanal ice deliver exceptional clarity. Every harvest is tuned for balance and depth.
+                    Curated selections of fine foods and artisanal beverages deliver exceptional clarity. Every detail is tuned for balance and depth.
                 </p>
             </div>
         </motion.section>
     );
 }
 
-// 45–70% scroll
+// 60–75% scroll
 export function AlchemySection({ scrollProgress }: { scrollProgress: MotionValue<number> }) {
-    const { opacity, y } = useSectionAnim(scrollProgress, 0.48, 0.70);
+    const { opacity, y } = useSectionAnim(scrollProgress, 0.60, 0.75);
 
     return (
         <motion.section
@@ -127,9 +127,9 @@ export function AlchemySection({ scrollProgress }: { scrollProgress: MotionValue
     );
 }
 
-// 70–90% scroll
+// 80–95% scroll
 export function HeritageSection({ scrollProgress }: { scrollProgress: MotionValue<number> }) {
-    const { opacity, y } = useSectionAnim(scrollProgress, 0.73, 0.90);
+    const { opacity, y } = useSectionAnim(scrollProgress, 0.80, 0.95);
 
     return (
         <motion.section
@@ -142,7 +142,7 @@ export function HeritageSection({ scrollProgress }: { scrollProgress: MotionValu
                     A Legacy of Craft.
                 </h2>
                 <p className="font-montserrat text-lg leading-relaxed text-muted-gold/90 mb-4">
-                    Rooted in the garden, inspired by tradition. Our gold-standard dedication to flavor restores clarity to the coffee experience.
+                    Rooted in the garden, inspired by modern excellence. Our gold-standard dedication to flavor and service restores clarity to the café experience.
                 </p>
             </div>
         </motion.section>

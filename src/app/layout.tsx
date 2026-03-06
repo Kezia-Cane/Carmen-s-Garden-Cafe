@@ -29,6 +29,8 @@ export const metadata: Metadata = {
   manifest: '/site.webmanifest',
 };
 
+import Navbar from "@/components/Navbar";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -37,6 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cinzel.variable} ${montserrat.variable}`} suppressHydrationWarning>
       <body className="antialiased" suppressHydrationWarning>
+        <Navbar />
         {children}
       </body>
     </html>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, useScroll } from "framer-motion";
+import Link from "next/link";
 import { BotanicalButton } from "@/components/ui/botanical-button";
 
 export default function Navbar({ isPreloaderDone = true }: { isPreloaderDone?: boolean }) {
@@ -24,22 +25,25 @@ export default function Navbar({ isPreloaderDone = true }: { isPreloaderDone?: b
         >
             {/* Logo */}
             <div className="flex-1">
-                <span className="font-cinzel text-2xl tracking-widest text-gold text-glow font-bold">
+                <Link href="/" className="font-cinzel text-2xl tracking-widest text-gold text-glow font-bold hover:opacity-80 transition-opacity">
                     Carmen&apos;s Garden
-                </span>
+                </Link>
             </div>
 
             {/* Navigation Links */}
             <nav className="hidden md:flex flex-1 justify-center space-x-12">
-                {["Origins", "The Craft", "Menu", "Experience"].map((item) => (
-                    <a
-                        key={item}
-                        href={`#${item.toLowerCase().replace(" ", "-")}`}
-                        className="font-montserrat text-sm tracking-[0.2em] text-muted-gold hover:text-gold transition-colors duration-300 uppercase"
-                    >
-                        {item}
-                    </a>
-                ))}
+                {["Origins", "The Craft", "Menu", "Experience"].map((item) => {
+                    const path = `/${item.toLowerCase().replace(" ", "-")}`;
+                    return (
+                        <Link
+                            key={item}
+                            href={path}
+                            className="font-montserrat text-sm tracking-[0.2em] text-muted-gold hover:text-gold transition-colors duration-300 uppercase"
+                        >
+                            {item}
+                        </Link>
+                    );
+                })}
             </nav>
 
             {/* CTA Button */}
