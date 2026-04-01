@@ -3,7 +3,9 @@
 import { Footer } from "@/components/Footer";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { AmbientGlow } from "@/components/ui/ambient-glow";
+import { AnimatedQuoteStrip } from "@/components/sections/AnimatedQuoteStrip";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function OriginsPage() {
     return (
@@ -13,7 +15,7 @@ export default function OriginsPage() {
                 subtitle="A vision revived through structured excellence."
             />
 
-            {/* Content Section 1: The Jonas Family Vision */}
+            {/* Content Section 1: The John Salde Partnership */}
             <section className="py-24 px-8 md:px-24 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                 <motion.div
                     initial={{ opacity: 0, x: -30 }}
@@ -21,58 +23,73 @@ export default function OriginsPage() {
                     viewport={{ once: true }}
                     transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                 >
-                    <h2 className="font-cinzel text-4xl md:text-5xl text-gold mb-8">A Family Legacy</h2>
-                    <p className="font-montserrat text-lg leading-relaxed text-muted-gold/90 mb-6">
-                        Carmen&apos;s Garden Café is a testament to the Jonas family&apos;s dedication to their community. Already established through their neighboring law office, surveying firm, and car dealership, the family envisioned a premium sanctuary where locals and professionals could gather.
+                    <h2 className="font-cinzel text-4xl md:text-5xl text-gold mb-8">Structured Growth</h2>
+                    <p className="font-montserrat text-xl leading-relaxed italic text-muted-gold/90 mb-6">
+                        "When passion meets disciplined execution, a family business can truly flourish."
                     </p>
-                    <p className="font-montserrat text-lg leading-relaxed text-muted-gold/90">
-                        What started as a tranquil garden concept required a powerful operational framework to reach its true potential as an unforgettable culinary and beverage destination.
+                    <p className="font-montserrat text-lg leading-relaxed text-muted-gold/80">
+                        To raise the café to a higher standard, this family-owned business partnered with <strong>John Salde Consulting</strong>. With deep expertise in food business growth, structured systems, and operational consistency, John Salde Consulting led a full brand revitalization, turning the family&apos;s vision into a stronger, more scalable, and more profitable business.
                     </p>
                 </motion.div>
+
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative aspect-square bg-emerald rounded-2xl overflow-hidden border border-gold/10 shadow-2xl"
+                    className="relative aspect-auto h-[600px] w-full rounded-2xl overflow-hidden shadow-2xl group border border-gold/10"
                 >
-                    {/* Placeholder for high-fidelity origin image */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-forest-green/20 via-transparent to-forest-green/40 mix-blend-overlay" />
-                    <div className="absolute inset-0 flex items-center justify-center text-gold/20 font-cinzel text-3xl uppercase tracking-[0.3em] text-center px-4">
-                        The Jonas <br /> Foundation
-                    </div>
+                    <Image
+                        src="/origins/unnamed (4).jpg"
+                        alt="John Salde Origin Consulting"
+                        fill
+                        className="object-cover brightness-90 group-hover:brightness-105 group-hover:scale-105 transition-all duration-700"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    {/* Luxury Overlay Gradients */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-forest-green/30 via-transparent to-forest-green/50 mix-blend-overlay" />
+                    <div className="absolute inset-b-0 bottom-0 w-full h-1/2 bg-gradient-to-t from-forest-green/80 to-transparent" />
                 </motion.div>
             </section>
 
-            {/* Content Section 2: The John Salde Partnership */}
-            <section className="py-24 px-8 md:px-24 bg-emerald relative">
-                <AmbientGlow variant="top-right" className="opacity-10" />
-                <div className="max-w-4xl mx-auto text-center">
+            <AnimatedQuoteStrip
+                quote="Every great vision demands a foundation capable of holding it."
+            />
+
+            {/* Content Section 2: Sanctuary in the City */}
+            <section className="py-32 px-8 md:px-24 bg-emerald relative overflow-hidden">
+                <AmbientGlow variant="bottom-left" className="opacity-20 scale-150" />
+                <AmbientGlow variant="top-right" className="opacity-10 scale-125" />
+
+                <div className="max-w-4xl mx-auto text-center relative z-10">
                     <motion.h2
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1 }}
+                        className="font-cinzel text-4xl md:text-5xl lg:text-6xl text-gold mb-10 text-glow"
+                    >
+                        A Sanctuary in the City
+                    </motion.h2>
+
+                    <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="font-cinzel text-3xl md:text-5xl text-gold mb-12"
+                        transition={{ delay: 0.2, duration: 1 }}
+                        className="font-montserrat text-lg md:text-xl leading-loose text-muted-gold/90 max-w-3xl mx-auto mb-8"
                     >
-                        Structured Growth
-                    </motion.h2>
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.3 }}
-                        className="font-montserrat text-xl leading-relaxed italic"
-                    >
-                        "When passion meets structured execution, businesses grow."
+                        Beyond the sophisticated systems lies the soul of Carmen’s Garden Café. Nestled quietly away from the urban rush, the rear garden offers a deeply immersive nature vibe.
                     </motion.p>
+
                     <motion.p
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ delay: 0.5 }}
-                        className="font-montserrat text-lg leading-relaxed mt-8 text-muted-gold/80"
+                        transition={{ delay: 0.4, duration: 1 }}
+                        className="font-montserrat text-xl md:text-2xl leading-relaxed italic text-muted-gold/80"
                     >
-                        To elevate the café to unparalleled standards, the Jonas family partnered with <strong>John Salde Consulting</strong>. Bringing authoritative expertise in food business growth, structured systems, and operational consistency, John Salde orchestrated a complete brand revival—bridging the gap between the family&apos;s passionate vision and scalable profitability.
+                        It is an ultra-premium sanctuary designed for those who seek to escape the noise, chill in absolute tranquility, and enjoy a high-end atmosphere where every detail is in harmony.
                     </motion.p>
                 </div>
             </section>

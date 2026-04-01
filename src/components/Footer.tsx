@@ -1,17 +1,16 @@
 "use client";
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 import {
     Mail,
     Phone,
     MapPin,
-    Facebook,
     Instagram,
     Twitter,
     Globe,
-    ArrowRight,
 } from "lucide-react";
-import { FooterBackgroundGradient, TextHoverEffect } from "@/components/ui/hover-footer";
-import { AmbientGlow } from "@/components/ui/ambient-glow";
+import { FooterBackgroundGradient } from "@/components/ui/hover-footer";
 
 export function Footer() {
     const footerLinks = [
@@ -50,10 +49,15 @@ export function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 md:gap-12 pb-24 border-b border-gold/10">
                     {/* Brand section */}
                     <div className="flex flex-col space-y-8">
-                        <div className="flex items-center space-x-3">
-                            <span className="text-gold text-4xl font-cinzel">C</span>
-                            <span className="text-white text-3xl font-cinzel tracking-tighter">Carmen’s</span>
-                        </div>
+                        <Link href="/" className="inline-flex w-fit items-center">
+                            <Image
+                                src="/carmens-garden-logo.png"
+                                alt="Carmen's Garden Cafe"
+                                width={320}
+                                height={178}
+                                className="h-auto w-[210px] md:w-[270px] lg:w-[320px]"
+                            />
+                        </Link>
                         <p className="font-montserrat text-sm leading-relaxed text-muted-gold opacity-80 max-w-xs">
                             Cultivated in nature, perfected in glass. A sanctuary where the soul finds its garden.
                         </p>

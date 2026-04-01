@@ -1,6 +1,4 @@
-"use client";
-
-import { useRef } from "react";
+import Image from "next/image";
 import { BotanicalButton } from "@/components/ui/botanical-button";
 import { AmbientGlow } from "@/components/ui/ambient-glow";
 
@@ -29,10 +27,14 @@ function GridItem({ src, index, spanClass }: { src: string, index: number, spanC
         <div
             className={`relative group overflow-hidden rounded-2xl bg-[#091d15] border border-gold/10 ${spanClass} opacity-100 translate-y-0`}
         >
-            <img
+            <Image
                 src={src}
                 alt={`Garden Reveal ${index + 1}`}
-                className="w-full h-full object-cover transition-transform duration-[2.5s] ease-out group-hover:scale-110"
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                className="object-cover transition-transform duration-[2.5s] ease-out group-hover:scale-110"
+                quality={60}
+                loading="lazy"
             />
             {/* Ambient Shadow Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 pointer-events-none" />
@@ -41,12 +43,9 @@ function GridItem({ src, index, spanClass }: { src: string, index: number, spanC
 }
 
 export function SignatureBentoSection() {
-    const sectionRef = useRef<HTMLDivElement>(null);
-
     return (
         <section
-            ref={sectionRef}
-            className="relative z-30 bg-forest-green py-32 px-4 md:px-8 lg:px-12 w-full min-h-screen overflow-x-clip"
+            className="relative z-30 bg-forest-green py-32 px-4 md:px-8 lg:px-12 w-full min-h-screen overflow-x-clip content-visibility-auto"
         >
             <AmbientGlow variant="left" className="opacity-30" />
             <AmbientGlow variant="right" className="opacity-30" />
@@ -77,7 +76,7 @@ export function SignatureBentoSection() {
             </div>
 
             {/* The Final Invitation with Google Maps */}
-            <div className="w-full relative z-20 pb-16 opacity-100">
+            <div id="visit-garden" className="w-full relative z-20 pb-16 opacity-100 scroll-mt-28">
                 <div className="text-center mb-20">
                     <h2 className="font-cinzel text-5xl md:text-7xl lg:text-8xl text-gold text-glow mb-4 tracking-tighter">
                         Your Table Awaits.
@@ -166,7 +165,7 @@ export function SignatureBentoSection() {
 
                 {/* CTA Button — Below the Map */}
                 <div className="text-center mt-16">
-                    <BotanicalButton>Visit the Garden</BotanicalButton>
+                    <BotanicalButton href="#visit-garden">Visit the Garden</BotanicalButton>
                 </div>
             </div>
         </section>

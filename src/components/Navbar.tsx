@@ -1,19 +1,19 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, useScroll } from "framer-motion";
+import { useState } from "react";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { BotanicalButton } from "@/components/ui/botanical-button";
 
 export default function Navbar({ isPreloaderDone = true }: { isPreloaderDone?: boolean }) {
     const { scrollY } = useScroll();
     const [isScrolled, setIsScrolled] = useState(false);
 
-    useEffect(() => {
-        return scrollY.onChange((latest) => {
-            setIsScrolled(latest > 50);
-        });
-    }, [scrollY]);
+    useMotionValueEvent(scrollY, "change", (latest) => {
+        const nextIsScrolled = latest > 50;
+        setIsScrolled((prev) => (prev === nextIsScrolled ? prev : nextIsScrolled));
+    });
 
     return (
         <motion.header
@@ -25,8 +25,15 @@ export default function Navbar({ isPreloaderDone = true }: { isPreloaderDone?: b
         >
             {/* Logo */}
             <div className="flex-1">
-                <Link href="/" className="font-cinzel text-2xl tracking-widest text-gold text-glow font-bold hover:opacity-80 transition-opacity">
-                    Carmen&apos;s Garden
+                <Link href="/" className="inline-flex items-center hover:opacity-80 transition-opacity">
+                    <Image
+                        src="/carmens-garden-logo.png"
+                        alt="Carmen's Garden Cafe"
+                        width={260}
+                        height={144}
+                        priority
+                        className="h-auto w-[170px] md:w-[220px] lg:w-[260px]"
+                    />
                 </Link>
             </div>
 
@@ -48,7 +55,9 @@ export default function Navbar({ isPreloaderDone = true }: { isPreloaderDone?: b
 
             {/* CTA Button */}
             <div className="flex-1 flex justify-end">
-                <BotanicalButton className="!py-3 !px-8 text-[10px] md:text-xs">Visit the Garden</BotanicalButton>
+                <BotanicalButton href="/#visit-garden" className="!py-3 !px-8 text-[10px] md:text-xs">
+                    Visit the Garden
+                </BotanicalButton>
             </div>
         </motion.header>
     );

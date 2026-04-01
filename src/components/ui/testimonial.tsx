@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { AmbientGlow } from "@/components/ui/ambient-glow";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 const testimonials = [
     {
@@ -43,22 +44,19 @@ const testimonials = [
     },
 ];
 
+const TESTIMONIAL_ROTATIONS = [0, -6, 5, -4, 7];
+
 export const AnimatedTestimonials = ({
     autoplay = true,
 }: {
     autoplay?: boolean;
 }) => {
     const [active, setActive] = useState(0);
-    const [rotations, setRotations] = useState<number[]>([]);
+    const prefersReducedMotion = useReducedMotion();
 
-    useEffect(() => {
-        // Generate fixed random rotations for the background cards once on mount
-        setRotations(testimonials.map(() => Math.floor(Math.random() * 21) - 10));
-    }, []);
-
-    const handleNext = useCallback(() => {
+    const handleNext = () => {
         setActive((prev) => (prev + 1) % testimonials.length);
-    }, []);
+    };
 
     const handlePrev = () => {
         setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length);
@@ -68,7 +66,7 @@ export const AnimatedTestimonials = ({
         if (!autoplay) return;
         const interval = setInterval(handleNext, 6000);
         return () => clearInterval(interval);
-    }, [autoplay, handleNext]);
+    }, [autoplay]);
 
     const getStackOffset = (index: number) => {
         // Calculates how far a card is from the active index (0 = active, 1 = right behind, etc.)
@@ -76,7 +74,7 @@ export const AnimatedTestimonials = ({
     };
 
     return (
-        <section className="relative z-20 bg-forest-green py-32 px-4 md:px-8 lg:px-12 overflow-x-clip">
+        <section className="relative z-20 bg-forest-green py-32 px-4 md:px-8 lg:px-12 overflow-x-clip content-visibility-auto">
             {/* Section Header */}
             <div className="mb-20 text-center">
                 <h2 className="font-cinzel text-4xl md:text-5xl lg:text-6xl text-gold tracking-wider">
@@ -96,13 +94,16 @@ export const AnimatedTestimonials = ({
                                 {testimonials.map((testimonial, index) => {
                                     const offset = getStackOffset(index);
                                     const isFront = offset === 0;
+                                    const isVisible = offset <= 2 || offset === testimonials.length - 1;
+
+                                    if (!isVisible) return null;
 
                                     // Determine visibility dynamically based on depth
                                     let opacity = 0;
                                     if (isFront) opacity = 1;
                                     else if (offset === 1) opacity = 0.85;
                                     else if (offset === 2) opacity = 0.6;
-                                    else if (offset === 3) opacity = 0.35;
+                                    else opacity = 0.35;
 
                                     return (
                                         <motion.div
@@ -111,30 +112,28 @@ export const AnimatedTestimonials = ({
                                                 opacity: 0,
                                                 scale: 0.9,
                                                 y: 50,
-                                                rotate: rotations[index] ?? 0,
+                                                rotate: TESTIMONIAL_ROTATIONS[index] ?? 0,
                                             }}
                                             animate={{
                                                 opacity: opacity,
-                                                scale: isFront ? 1 : 1 - offset * 0.04,
+                                                scale: prefersReducedMotion ? 1 : isFront ? 1 : 1 - Math.min(offset, 2) * 0.04,
                                                 y: isFront ? 0 : offset * 12,
                                                 zIndex: testimonials.length - offset,
-                                                rotate: isFront ? 0 : (rotations[index] ?? 0),
+                                                rotate: prefersReducedMotion || isFront ? 0 : (TESTIMONIAL_ROTATIONS[index] ?? 0),
                                             }}
                                             exit={{ opacity: 0, scale: 0.9, y: 50 }}
                                             transition={{ duration: 0.5, ease: "easeInOut" }}
                                             className="absolute inset-0 origin-bottom"
                                         >
                                             <div className="w-full h-full relative rounded-3xl overflow-hidden shadow-2xl border border-gold/20 bg-[#0e2a1b]">
-                                                <img
+                                                <Image
                                                     src={testimonial.src}
                                                     alt={testimonial.name}
-                                                    draggable={false}
-                                                    className="w-full h-full object-cover"
-                                                    onError={(e) => {
-                                                        const target = e.currentTarget;
-                                                        target.onerror = null; // Prevent infinite loop
-                                                        target.src = "https://images.unsplash.com/photo-1548142813-c348350df52b?q=80&w=800&auto=format&fit=crop"; // Ultimate fallback
-                                                    }}
+                                                    fill
+                                                    sizes="(max-width: 768px) 80vw, 320px"
+                                                    className="object-cover"
+                                                    quality={70}
+                                                    loading={isFront ? "eager" : "lazy"}
                                                 />
                                                 {/* Overlay to dim background cards strictly via CSS layer instead of relying solely on element opacity blending */}
                                                 {!isFront && (

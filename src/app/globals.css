@@ -32,6 +32,11 @@
   .text-glow {
     text-shadow: 0 0 10px rgba(242, 224, 148, 0.4), 0 0 20px rgba(242, 224, 148, 0.2);
   }
+
+  .content-visibility-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 1000px;
+  }
 }
 
 /* ================================ */

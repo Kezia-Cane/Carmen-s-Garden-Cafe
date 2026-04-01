@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { BotanicalButton } from "@/components/ui/botanical-button";
 import { AmbientGlow } from "@/components/ui/ambient-glow";
 
@@ -55,7 +56,7 @@ export function SignaturesExplorer() {
     return (
         <section
             id="menu"
-            className="relative z-20 bg-forest-green py-24 md:py-32 px-4 md:px-8 lg:px-12 overflow-x-clip min-h-screen flex items-center"
+            className="relative z-20 bg-forest-green py-24 md:py-32 px-4 md:px-8 lg:px-12 overflow-x-clip min-h-screen flex items-center content-visibility-auto"
         >
             <AmbientGlow variant="right" className="opacity-30" />
 
@@ -78,14 +79,21 @@ export function SignaturesExplorer() {
                                     className="relative w-full h-full flex items-center justify-center"
                                 >
                                     {/* Magnetic hover effect wrapper */}
-                                    <motion.img
-                                        src={active.src}
-                                        alt={active.name}
-                                        className="w-[85%] h-[85%] object-contain drop-shadow-[0_20px_60px_rgba(242,224,148,0.12)]"
+                                    <motion.div
                                         whileHover={{ y: -8, scale: 1.03 }}
                                         transition={{ type: "spring", stiffness: 200 }}
-                                        draggable={false}
-                                    />
+                                        className="relative w-[85%] h-[85%]"
+                                    >
+                                        <Image
+                                            src={active.src}
+                                            alt={active.name}
+                                            fill
+                                            sizes="(max-width: 768px) 70vw, (max-width: 1200px) 40vw, 420px"
+                                            className="object-contain drop-shadow-[0_20px_60px_rgba(242,224,148,0.12)]"
+                                            quality={70}
+                                            priority={activeIndex === 0}
+                                        />
+                                    </motion.div>
                                 </motion.div>
                             </AnimatePresence>
                         </div>
@@ -151,10 +159,15 @@ export function SignaturesExplorer() {
                                         className={`relative w-16 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden flex-shrink-0 border transition-colors ${activeIndex === index ? "border-gold/40" : "border-gold/10"
                                             }`}
                                     >
-                                        <img
+                                        <Image
                                             src={item.src}
                                             alt={item.name}
+                                            width={80}
+                                            height={80}
+                                            sizes="80px"
                                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                            quality={60}
+                                            loading="lazy"
                                         />
                                     </div>
 

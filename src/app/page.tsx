@@ -1,56 +1,32 @@
-"use client";
-
-import { useRef, useState } from "react";
-import { useScroll } from "framer-motion";
-import Navbar from "@/components/Navbar";
-import CanvasSequence from "@/components/CanvasSequence";
-import {
-  HeroSection,
-  ArtisanalRevealSection,
-  AlchemySection,
-  HeritageSection,
-} from "@/components/sections/StorytellingSections";
+import { Footer } from "@/components/Footer";
+import { HomeHeroShell } from "@/components/HomeHeroShell";
+import { AnimatedQuoteStrip } from "@/components/sections/AnimatedQuoteStrip";
+import { ParallaxImageReveal } from "@/components/sections/ParallaxImageReveal";
 import { SignatureBentoSection } from "@/components/sections/SignatureBentoSection";
 import { SignaturesExplorer } from "@/components/sections/SignaturesExplorer";
 import { AnimatedTestimonials } from "@/components/ui/testimonial";
-import { Footer } from "@/components/Footer";
-import { Preloader } from "@/components/Preloader";
 
 export default function Home() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
+    return (
+        <main className="relative min-h-screen bg-forest-green text-muted-gold">
+            <HomeHeroShell />
 
-  const [isPreloaderDone, setIsPreloaderDone] = useState(false);
+            <AnimatedQuoteStrip
+                quote="A sanctuary where precision and nature coexist in absolute harmony."
+                author="The Heritage"
+            />
 
-  return (
-    <main className="relative bg-forest-green text-muted-gold min-h-screen">
-      <Preloader onComplete={() => setIsPreloaderDone(true)} />
+            <ParallaxImageReveal
+                imageSrc="/origins/unnamed (4).jpg"
+                imageAlt="Coffee Heritage"
+                title="Elevate Your Ritual"
+                text="Discover a menu engineered for clarity, designed to awaken your senses and redefine your daily routine."
+            />
 
-      {/* The sticky background canvas that plays the image sequence */}
-      <CanvasSequence containerRef={containerRef} />
-
-      {/* The scrolling container that provides the "track" for the animation height */}
-      <div
-        ref={containerRef}
-        className="relative z-10 w-full"
-        style={{ height: "500vh" }}
-      >
-        <HeroSection scrollProgress={scrollYProgress} isPreloaderDone={isPreloaderDone} />
-        <ArtisanalRevealSection scrollProgress={scrollYProgress} />
-        <AlchemySection scrollProgress={scrollYProgress} />
-        <HeritageSection scrollProgress={scrollYProgress} />
-      </div>
-
-      {/* Signatures Explorer — positioned immediately after the hero scroll */}
-      <SignaturesExplorer />
-
-      {/* The Final Signature Section, Testimonials & Footer */}
-      <SignatureBentoSection />
-      <AnimatedTestimonials />
-      <Footer />
-    </main>
-  );
+            <SignaturesExplorer />
+            <SignatureBentoSection />
+            <AnimatedTestimonials />
+            <Footer />
+        </main>
+    );
 }

@@ -3,7 +3,9 @@
 import { Footer } from "@/components/Footer";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { AmbientGlow } from "@/components/ui/ambient-glow";
+import { AnimatedQuoteStrip } from "@/components/sections/AnimatedQuoteStrip";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function TheCraftPage() {
     return (
@@ -57,14 +59,24 @@ export default function TheCraftPage() {
 
                     <div className="lg:col-span-5 flex items-center justify-center">
                         <div className="relative w-full aspect-[4/5] bg-emerald rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.3)] group">
-                            <AmbientGlow className="opacity-20 transition-opacity group-hover:opacity-40" />
-                            <div className="absolute inset-0 flex items-center justify-center text-gold/10 font-cinzel text-xl text-center px-12 uppercase tracking-[0.5em] rotate-90 leading-relaxed">
-                                Profit First <br /> Systems
-                            </div>
+                            <Image
+                                src="/the-craft/nano-banana.webp"
+                                alt="Macro Botanical Preparation"
+                                fill
+                                className="object-cover group-hover:scale-105 transition-all duration-700 brightness-90 group-hover:brightness-105"
+                                sizes="(max-width: 1024px) 100vw, 50vw"
+                            />
+                            {/* Luxury Overlay Gradient */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-forest-green/20 via-transparent to-forest-green/60 mix-blend-overlay" />
                         </div>
                     </div>
                 </div>
             </section>
+
+            <AnimatedQuoteStrip
+                quote="Operational architecture is the quiet engine behind every unforgettable cup."
+                author="John Salde"
+            />
 
             <Footer />
         </main>

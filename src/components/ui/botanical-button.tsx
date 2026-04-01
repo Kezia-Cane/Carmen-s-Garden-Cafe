@@ -10,6 +10,7 @@ interface BotanicalButtonProps {
 }
 
 export function BotanicalButton({ children, onClick, href, className = "" }: BotanicalButtonProps) {
+    const isExternalHref = Boolean(href && /^(https?:)?\/\//.test(href));
     const buttonContent = (
         <>
             {children}
@@ -59,7 +60,12 @@ export function BotanicalButton({ children, onClick, href, className = "" }: Bot
 
     if (href) {
         return (
-            <a href={href} target="_blank" rel="noopener noreferrer" className={baseClassName}>
+            <a
+                href={href}
+                target={isExternalHref ? "_blank" : undefined}
+                rel={isExternalHref ? "noopener noreferrer" : undefined}
+                className={baseClassName}
+            >
                 {buttonContent}
             </a>
         );
