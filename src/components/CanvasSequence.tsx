@@ -50,9 +50,10 @@ export default function CanvasSequence({ isPreloaderDone = true }: { isPreloader
             ? ((navigator as Navigator & { connection?: ConnectionInfo }).connection)
             : undefined;
         const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
+        const effectiveType = connection?.effectiveType ?? "";
         setIsMobileViewport(isMobile);
         setShouldReduceData(
-            Boolean(connection?.saveData || ["slow-2g", "2g", "3g"].includes(connection?.effectiveType))
+            Boolean(connection?.saveData || ["slow-2g", "2g", "3g"].includes(effectiveType))
         );
     }, []);
 
