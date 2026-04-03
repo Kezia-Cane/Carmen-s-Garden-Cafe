@@ -165,7 +165,7 @@ export function SignatureBentoSection() {
 
                 {/* CTA Button — Below the Map */}
                 <div className="text-center mt-16">
-                    <BotanicalButton href="#visit-garden">Visit the Garden</BotanicalButton>
+                    <BotanicalButton href="/#visit-garden">Visit the Garden</BotanicalButton>
                 </div>
             </div>
         </section>

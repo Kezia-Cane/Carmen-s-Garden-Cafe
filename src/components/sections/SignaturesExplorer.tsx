@@ -119,7 +119,7 @@ export function SignaturesExplorer() {
                                 </p>
 
                                 <div className="pt-4">
-                                    <BotanicalButton>Add to Sip</BotanicalButton>
+                                    <BotanicalButton href="/#visit-garden">Add to Sip</BotanicalButton>
                                 </div>
                             </motion.div>
                         </AnimatePresence>
