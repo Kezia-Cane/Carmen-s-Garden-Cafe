@@ -8,7 +8,7 @@ import { AnimatedTestimonials } from "@/components/ui/testimonial";
 
 export default function Home() {
     return (
-        <main className="relative min-h-screen bg-forest-green text-muted-gold">
+        <main id="home-hero" className="relative min-h-screen bg-forest-green text-muted-gold">
             <HomeHeroShell />
 
             <AnimatedQuoteStrip

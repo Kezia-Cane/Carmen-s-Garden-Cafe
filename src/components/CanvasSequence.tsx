@@ -441,7 +441,7 @@ export default function CanvasSequence({ isPreloaderDone = true }: { isPreloader
                             Structured Excellence.
                         </h2>
                         <p className="font-montserrat text-lg leading-relaxed text-muted-gold/90 text-left">
-                            Curated selections of fine foods and artisanal beverages deliver exceptional clarity. Every detail is tuned for balance and depth.
+                            Curated selections of signature beverages and artisanal coffee creations deliver exceptional clarity. Every detail is tuned for balance and depth.
                         </p>
                     </motion.div>
                 )}

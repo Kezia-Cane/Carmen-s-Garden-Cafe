@@ -32,14 +32,14 @@ export default function TheCraftPage() {
                             viewport={{ once: true }}
                             className="font-montserrat text-lg text-muted-gold/80 max-w-xl mb-12 leading-loose"
                         >
-                            A true luxury café isn&apos;t just built on beautiful interiors—it survives on bulletproof systems. Through the expertise of John Salde Consulting, Carmen&apos;s Garden Café was entirely transformed. John orchestrated a structural rebirth spanning from back-of-house workflow design and coffee menu formulation to a dominant digital marketing presence.
+                            A true luxury café isn&apos;t just built on beautiful interiors—it survives on bulletproof systems. Through the expertise of John Salde Consulting, Carmen&apos;s Garden Café was entirely transformed. John orchestrated a structural rebirth spanning from back-of-house workflow design and beverage program development to a dominant digital marketing presence.
                         </motion.p>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {[
                                 { label: "Operational Leadership", desc: "Redefined store workflows, barista performance systems, and inventory control for flawless daily execution." },
                                 { label: "Digital Presence", desc: "A total rebranding effort culminating in a premium website, dynamic social media systems, and automated customer journeys." },
-                                { label: "Menu Architecture", desc: "Scientific beverage formulation, precise costing models, and a curated culinary offering that scales profitably." },
+                                { label: "Menu Architecture", desc: "Scientific beverage formulation, precise costing models, and a refined beverage program designed to scale profitably." },
                                 { label: "Systems Integration", desc: "Implementation of advanced POS systems, lead capture ecosystems, and deep analytics to ensure data-driven growth." }
                             ].map((item, idx) => (
                                 <motion.div

@@ -25,10 +25,10 @@ export default function OriginsPage() {
                 >
                     <h2 className="font-cinzel text-4xl md:text-5xl text-gold mb-8">Structured Growth</h2>
                     <p className="font-montserrat text-xl leading-relaxed italic text-muted-gold/90 mb-6">
-                        "When passion meets disciplined execution, a family business can truly flourish."
+                        "When family vision is supported by structure and disciplined execution, meaningful growth becomes possible."
                     </p>
                     <p className="font-montserrat text-lg leading-relaxed text-muted-gold/80">
-                        To raise the café to a higher standard, this family-owned business partnered with <strong>John Salde Consulting</strong>. With deep expertise in food business growth, structured systems, and operational consistency, John Salde Consulting led a full brand revitalization, turning the family&apos;s vision into a stronger, more scalable, and more profitable business.
+                        To elevate Carmen&apos;s Garden Café, the family partnered with <strong>John Salde Consulting</strong>. With expertise in beverage business growth, systems development, and operational consistency, the consultancy led a full brand and business revitalization, transforming the family&apos;s vision into a more refined, scalable, and profitable café.
                     </p>
                 </motion.div>
 

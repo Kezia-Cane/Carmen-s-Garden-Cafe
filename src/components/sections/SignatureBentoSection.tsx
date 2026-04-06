@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { BotanicalButton } from "@/components/ui/botanical-button";
 import { AmbientGlow } from "@/components/ui/ambient-glow";
+import { StoreStatusBadge } from "@/components/ui/store-status-badge";
 
 // List of all 16 .webp stock images to build a PERFECT 4-column masonry grid
 const GRID_IMAGES = [
@@ -89,7 +90,7 @@ export function SignatureBentoSection() {
                     {/* Left: Google Maps */}
                     <div className="relative rounded-2xl overflow-hidden border border-gold/10 shadow-2xl min-h-[400px]">
                         <a
-                            href="https://maps.app.goo.gl/nyhLvX7DQwbmAdWs7"
+                            href="https://maps.app.goo.gl/bN1jafo2aLR6oLp7A"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="absolute top-4 left-4 z-10 flex items-center gap-2 bg-forest-green/90 backdrop-blur-sm border border-gold/20 text-gold text-xs font-montserrat uppercase tracking-wider px-4 py-2 rounded-lg hover:bg-gold hover:text-forest-green transition-all"
@@ -114,23 +115,16 @@ export function SignatureBentoSection() {
                     <div className="flex flex-col gap-6">
                         {/* Hours Card */}
                         <div className="rounded-2xl border border-gold/10 bg-[#0e2a1b] p-8">
-                            <div className="inline-flex items-center gap-2 bg-red-900/40 text-red-400 text-xs font-montserrat uppercase tracking-wider px-4 py-1.5 rounded-full border border-red-500/20 mb-6">
-                                <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
-                                Closed
-                            </div>
+                            <StoreStatusBadge />
 
                             <div className="space-y-5">
                                 <div className="flex justify-between items-center">
-                                    <span className="font-montserrat text-sm font-semibold text-white">Monday – Friday</span>
-                                    <span className="font-montserrat text-sm text-muted-gold">7:00 AM – 10:00 PM</span>
-                                </div>
-                                <div className="flex justify-between items-center">
-                                    <span className="font-montserrat text-sm font-semibold text-white">Saturday</span>
-                                    <span className="font-montserrat text-sm text-muted-gold">8:00 AM – 11:00 PM</span>
+                                    <span className="font-montserrat text-sm font-semibold text-white">Monday to Saturday</span>
+                                    <span className="font-montserrat text-sm text-muted-gold">10:00 AM - 12:00 AM</span>
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="font-montserrat text-sm font-semibold text-white">Sunday</span>
-                                    <span className="font-montserrat text-sm text-muted-gold">8:00 AM – 9:00 PM</span>
+                                    <span className="font-montserrat text-sm text-muted-gold">1:00 PM - 10:00 PM</span>
                                 </div>
                             </div>
                         </div>

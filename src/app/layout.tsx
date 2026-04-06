@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cinzel_Decorative, Montserrat } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const cinzel = Cinzel_Decorative({
@@ -38,9 +39,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${cinzel.variable} ${montserrat.variable}`} suppressHydrationWarning>
-      <body className="antialiased" suppressHydrationWarning>
+      <body className="antialiased pb-28 md:pb-0" suppressHydrationWarning>
         <Navbar />
         {children}
+        <Analytics />
       </body>
     </html>
   );

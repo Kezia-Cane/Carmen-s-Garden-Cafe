@@ -11,12 +11,12 @@ const testimonials = [
         quote:
             "Lami kaayo ang kape diri, mura kog naa sa paraiso. Relaxing kaayo ang palibot. Bagay jud ni sa Carmen's.",
         name: "Maria Santos",
-        designation: "Coffee Lover from Cagayan de Oro",
+        designation: "Coffee Lover from Carmen",
         src: "https://images.unsplash.com/photo-1548142813-c348350df52b?q=80&w=800&auto=format&fit=crop",
     },
     {
         quote:
-            "The best nga kape! Pinakalami sa Misamis. Balik-balikan jud namo kining lugara uban sa akong pamilya.",
+            "The best nga kape! Pinakalami sa Carmen. Balik-balikan jud namo kining lugara uban sa akong pamilya.",
         name: "Juan Dela Cruz",
         designation: "Local Guide",
         src: "https://images.unsplash.com/photo-1540569014015-19a7be504e3a?q=80&w=800&auto=format&fit=crop",

@@ -6,9 +6,7 @@ import {
     Mail,
     Phone,
     MapPin,
-    Instagram,
-    Twitter,
-    Globe,
+    Facebook,
 } from "lucide-react";
 import { FooterBackgroundGradient } from "@/components/ui/hover-footer";
 
@@ -29,17 +27,18 @@ export function Footer() {
     const contactInfo = [
         {
             icon: <Mail size={16} className="text-gold" />,
-            text: "sanctuary@carmens.cafe",
-            href: "mailto:sanctuary@carmens.cafe",
+            text: "thejohnsalde@gmail.com",
+            href: "mailto:thejohnsalde@gmail.com",
         },
         {
             icon: <Phone size={16} className="text-gold" />,
-            text: "+1 (555) GARDEN-01",
-            href: "tel:+15554273360",
+            text: "09663043151",
+            href: "tel:09663043151",
         },
         {
             icon: <MapPin size={16} className="text-gold" />,
-            text: "123 Botanical Lane, Glasshaven",
+            text: "Carmen's Garden Cafe on Maps",
+            href: "https://maps.app.goo.gl/bN1jafo2aLR6oLp7A",
         },
     ];
 
@@ -119,9 +118,15 @@ export function Footer() {
                 <div className="flex flex-col md:flex-row justify-between items-center text-xs space-y-6 md:space-y-0 pt-12 text-gold/40 font-montserrat tracking-[0.2em] uppercase">
                     {/* Social icons */}
                     <div className="flex space-x-8">
-                        <a href="#" aria-label="Instagram" className="hover:text-gold transition-colors"><Instagram size={18} /></a>
-                        <a href="#" aria-label="Twitter" className="hover:text-gold transition-colors"><Twitter size={18} /></a>
-                        <a href="#" aria-label="Globe" className="hover:text-gold transition-colors"><Globe size={18} /></a>
+                        <a
+                            href="https://www.facebook.com/CarmensGardenCafe"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Facebook"
+                            className="hover:text-gold transition-colors"
+                        >
+                            <Facebook size={18} />
+                        </a>
                     </div>
 
                     <p className="text-center md:text-left">
