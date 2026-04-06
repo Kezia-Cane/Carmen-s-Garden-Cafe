@@ -4,10 +4,8 @@ import { useEffect, useEffectEvent, useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Coffee } from "lucide-react";
 import { AmbientGlow } from "@/components/ui/ambient-glow";
-import NextImage from "next/image";
 
 const FRAME_COUNT = 82; // 000 to 081
-const MOBILE_FALLBACK_SRC = "/sequence/5a397c44-049b-4726-8441-d86e3a659452_040_mobile.webp";
 
 type ConnectionInfo = {
     saveData?: boolean;
@@ -25,7 +23,6 @@ export default function CanvasSequence({ isPreloaderDone = true }: { isPreloader
     const [imagesLoaded, setImagesLoaded] = useState(false);
     const prefersReducedMotion = useReducedMotion();
     const [shouldReduceData, setShouldReduceData] = useState<boolean | null>(null);
-    const [isMobileViewport, setIsMobileViewport] = useState(false);
 
     // Frame and Phase Management
     const [phase, setPhase] = useState(0);
@@ -49,19 +46,16 @@ export default function CanvasSequence({ isPreloaderDone = true }: { isPreloader
         const connection = typeof navigator !== "undefined"
             ? ((navigator as Navigator & { connection?: ConnectionInfo }).connection)
             : undefined;
-        const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
         const effectiveType = connection?.effectiveType ?? "";
-        setIsMobileViewport(isMobile);
         setShouldReduceData(
             Boolean(connection?.saveData || ["slow-2g", "2g", "3g"].includes(effectiveType))
         );
     }, []);
 
     useEffect(() => {
-        if (!isPreloaderDone || shouldReduceData === null || isMobileViewport) return;
+        if (!isPreloaderDone || shouldReduceData === null) return;
 
         let isCancelled = false;
-        const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
         const cleanupCallbacks: Array<{ type: "idle" | "timeout"; id: number }> = [];
 
         const CRITICAL_FRAMES = prefersReducedMotion || shouldReduceData ? 6 : 12;
@@ -71,8 +65,7 @@ export default function CanvasSequence({ isPreloaderDone = true }: { isPreloader
                 return new Promise<HTMLImageElement>((resolve) => {
                     const img = new window.Image();
                     const paddedIndex = i.toString().padStart(3, "0");
-                    const suffix = isMobile ? "_mobile" : "";
-                    img.src = `/sequence/5a397c44-049b-4726-8441-d86e3a659452_${paddedIndex}${suffix}.webp`;
+                    img.src = `/sequence/5a397c44-049b-4726-8441-d86e3a659452_${paddedIndex}.webp`;
                     img.onload = () => resolve(img);
                 });
             });
@@ -83,18 +76,17 @@ export default function CanvasSequence({ isPreloaderDone = true }: { isPreloader
                 imagesRef.current[index] = img;
             });
             setImagesLoaded(true);
-            lazyLoadRemaining(isMobile, CRITICAL_FRAMES, BATCH_SIZE);
+            lazyLoadRemaining(CRITICAL_FRAMES, BATCH_SIZE);
         };
 
-        const lazyLoadRemaining = (isMobile: boolean, startIndex: number, batchSize: number) => {
+        const lazyLoadRemaining = (startIndex: number, batchSize: number) => {
             let nextIndex = startIndex;
             const loadBatch = () => {
                 const end = Math.min(nextIndex + batchSize, FRAME_COUNT);
                 for (let i = nextIndex; i < end; i++) {
                     const img = new window.Image();
                     const paddedIndex = i.toString().padStart(3, "0");
-                    const suffix = isMobile ? "_mobile" : "";
-                    img.src = `/sequence/5a397c44-049b-4726-8441-d86e3a659452_${paddedIndex}${suffix}.webp`;
+                    img.src = `/sequence/5a397c44-049b-4726-8441-d86e3a659452_${paddedIndex}.webp`;
                     img.onload = () => {
                         if (isCancelled) return;
                         imagesRef.current[i] = img;
@@ -130,7 +122,7 @@ export default function CanvasSequence({ isPreloaderDone = true }: { isPreloader
                 }
             });
         };
-    }, [isPreloaderDone, prefersReducedMotion, shouldReduceData, isMobileViewport]);
+    }, [isPreloaderDone, prefersReducedMotion, shouldReduceData]);
 
     // --- RENDERING LOGIC ---
     const renderFrame = (index: number) => {
@@ -143,9 +135,6 @@ export default function CanvasSequence({ isPreloaderDone = true }: { isPreloader
         const img = imagesRef.current[index];
 
         let scale = Math.max(canvas.width / img.width, canvas.height / img.height);
-        if (canvas.width <= 768) {
-            scale *= 0.85; // Slight zoom out for mobile
-        }
 
         const x = canvas.width / 2 - (img.width / 2) * scale;
         const y = canvas.height / 2 - (img.height / 2) * scale;
@@ -242,15 +231,6 @@ export default function CanvasSequence({ isPreloaderDone = true }: { isPreloader
     });
 
     useEffect(() => {
-        if (isMobileViewport) {
-            document.body.style.overflow = "";
-            document.body.style.overscrollBehavior = "";
-            return () => {
-                document.body.style.overflow = "";
-                document.body.style.overscrollBehavior = "";
-            };
-        }
-
         const handleWheel = (e: WheelEvent) => {
             if (isAnimatingRef.current) {
                 if (!isFinished && e.cancelable) e.preventDefault();
@@ -342,43 +322,16 @@ export default function CanvasSequence({ isPreloaderDone = true }: { isPreloader
             window.removeEventListener("touchmove", handleTouchMove);
             window.removeEventListener("touchend", handleTouchEnd);
         };
-    }, [isFinished, imagesLoaded, isPreloaderDone, isMobileViewport]);
-
-
-    if (isMobileViewport) {
-        return (
-            <div className="relative z-10 h-[100svh] w-full overflow-hidden bg-forest-green select-none">
-                <NextImage
-                    src={MOBILE_FALLBACK_SRC}
-                    alt="Carmen's Garden Cafe hero"
-                    fill
-                    priority
-                    sizes="100vw"
-                    className="object-cover"
-                />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_28%,rgba(13,45,32,0.92)_100%)]" />
-                <div className="absolute inset-0 bg-black/45 md:hidden" />
-                <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
-                    <h1 className="mb-6 font-cinzel text-5xl text-gold text-glow md:text-7xl lg:text-8xl">
-                        Carmen&apos;s Garden Cafe
-                    </h1>
-                    <p className="font-seasons text-lg tracking-[0.2em] text-muted-gold md:text-2xl">
-                        Cultivated in nature, perfected in glass.
-                    </p>
-                </div>
-            </div>
-        );
-    }
+    }, [isFinished, imagesLoaded, isPreloaderDone]);
 
     return (
         <div className="relative w-full h-[100svh] z-10 bg-forest-green overflow-hidden select-none">
             <canvas ref={canvasRef} className="absolute inset-0 w-full h-full object-cover" />
 
             {/* Dark gradient overlay so text remains readable */}
+            <div className="absolute inset-0 bg-black/28 pointer-events-none" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,theme(colors.forest-green)_100%)] opacity-80 pointer-events-none" />
-
-            {/* Mobile high-contrast overlay */}
-            <div className="absolute inset-0 bg-black/60 md:hidden pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/42 via-black/10 to-black/62 pointer-events-none" />
 
             {/* Cinematic Fade to Black when finished (3rd scroll complete) */}
             <AnimatePresence>
