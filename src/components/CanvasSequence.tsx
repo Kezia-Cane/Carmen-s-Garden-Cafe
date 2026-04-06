@@ -7,7 +7,7 @@ import { AmbientGlow } from "@/components/ui/ambient-glow";
 import NextImage from "next/image";
 
 const FRAME_COUNT = 82; // 000 to 081
-const MOBILE_FALLBACK_SRC = "/sequence-mobile/5a397c44-049b-4726-8441-d86e3a659452_040_mobile.webp";
+const MOBILE_FALLBACK_SRC = "/sequence/5a397c44-049b-4726-8441-d86e3a659452_040_mobile.webp";
 
 type ConnectionInfo = {
     saveData?: boolean;
@@ -242,6 +242,15 @@ export default function CanvasSequence({ isPreloaderDone = true }: { isPreloader
     });
 
     useEffect(() => {
+        if (isMobileViewport) {
+            document.body.style.overflow = "";
+            document.body.style.overscrollBehavior = "";
+            return () => {
+                document.body.style.overflow = "";
+                document.body.style.overscrollBehavior = "";
+            };
+        }
+
         const handleWheel = (e: WheelEvent) => {
             if (isAnimatingRef.current) {
                 if (!isFinished && e.cancelable) e.preventDefault();
@@ -333,7 +342,7 @@ export default function CanvasSequence({ isPreloaderDone = true }: { isPreloader
             window.removeEventListener("touchmove", handleTouchMove);
             window.removeEventListener("touchend", handleTouchEnd);
         };
-    }, [isFinished, imagesLoaded, isPreloaderDone]);
+    }, [isFinished, imagesLoaded, isPreloaderDone, isMobileViewport]);
 
 
     if (isMobileViewport) {
