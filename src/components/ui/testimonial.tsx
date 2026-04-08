@@ -9,42 +9,21 @@ import Image from "next/image";
 const testimonials = [
     {
         quote:
-            "Lami kaayo ang kape diri, mura kog naa sa paraiso. Relaxing kaayo ang palibot. Bagay jud ni sa Carmen's.",
-        name: "Maria Santos",
-        designation: "Coffee Lover from Carmen",
-        src: "https://images.unsplash.com/photo-1548142813-c348350df52b?q=80&w=800&auto=format&fit=crop",
+            "Lami kaayo ang kape diri, mura gyud ug naa ka sa garden retreat. Peaceful ang place ug premium kaayo ang dating.",
+        name: "Alyssa Ramos",
+        designation: "Weekend Guest from Carmen",
+        src: "/testimonials/alyssa-ramos.svg",
     },
     {
         quote:
-            "The best nga kape! Pinakalami sa Carmen. Balik-balikan jud namo kining lugara uban sa akong pamilya.",
-        name: "Juan Dela Cruz",
-        designation: "Local Guide",
-        src: "https://images.unsplash.com/photo-1540569014015-19a7be504e3a?q=80&w=800&auto=format&fit=crop",
-    },
-    {
-        quote:
-            "Nindot kaayo ang ambiance, perfect para trabaho or relax. Ang kalami sa kape dili jud mabayran.",
-        name: "Elena Garcia",
-        designation: "Freelancer",
-        src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop",
-    },
-    {
-        quote:
-            "Ang view sa garden makapawala sa stress. Nindot pa jud ang scenery samtang naga-inom og bugnaw nga kape.",
-        name: "Roberto Lim",
-        designation: "Nature Enthusiast",
-        src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop",
-    },
-    {
-        quote:
-            "Diri nako nakit-an ang tinuod nga kape nga naay kasing-kasing. Ang garden perfect kaayo nga backdrop.",
-        name: "Sofia Reyes",
-        designation: "Artist",
-        src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop",
+            "Bisan first visit pa lang, dali kaayo ma-feel ang warmth sa lugar. Nice ang drinks, nice ang service, ug balik-balikan gyud.",
+        name: "Paolo Mendoza",
+        designation: "Creative Professional from Butuan",
+        src: "/testimonials/paolo-mendoza.svg",
     },
 ];
 
-const TESTIMONIAL_ROTATIONS = [0, -6, 5, -4, 7];
+const TESTIMONIAL_ROTATIONS = [0, -5];
 
 export const AnimatedTestimonials = ({
     autoplay = true,
@@ -74,10 +53,10 @@ export const AnimatedTestimonials = ({
     };
 
     return (
-        <section className="relative z-20 bg-forest-green py-32 px-4 md:px-8 lg:px-12 overflow-x-clip content-visibility-auto">
+        <section className="relative z-20 overflow-x-clip bg-forest-green px-4 py-24 content-visibility-auto md:px-8 md:py-32 lg:px-12">
             {/* Section Header */}
-            <div className="mb-20 text-center">
-                <h2 className="font-cinzel text-4xl md:text-5xl lg:text-6xl text-gold tracking-wider">
+            <div className="mb-14 text-center md:mb-20">
+                <h2 className="font-cinzel text-3xl tracking-wider text-gold sm:text-4xl md:text-5xl lg:text-6xl">
                     Voices of the Garden
                 </h2>
                 <div className="h-[1px] w-24 bg-gold/30 mx-auto mt-6" />
@@ -85,10 +64,10 @@ export const AnimatedTestimonials = ({
 
             {/* Testimonial Content */}
             <div className="mx-auto max-w-6xl">
-                <div className="relative grid grid-cols-1 gap-y-12 md:grid-cols-2 md:gap-x-20 items-center">
+                <div className="relative grid grid-cols-1 items-center gap-y-10 md:grid-cols-2 md:gap-x-14 lg:gap-x-20">
                     {/* Image Stack Section */}
                     <div className="flex items-center justify-center">
-                        <div className="relative h-[400px] w-full max-w-[320px]">
+                        <div className="relative h-[320px] w-full max-w-[260px] sm:h-[380px] sm:max-w-[300px] md:h-[400px] md:max-w-[320px]">
                             <AmbientGlow variant="center" size={600} className="opacity-40" />
                             <AnimatePresence>
                                 {testimonials.map((testimonial, index) => {
@@ -148,7 +127,7 @@ export const AnimatedTestimonials = ({
                     </div>
 
                     {/* Text & Controls Section — Name above Quote */}
-                    <div className="flex flex-col justify-center py-4">
+                    <div className="flex flex-col justify-center py-2 text-center md:py-4 md:text-left">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={active}
@@ -159,24 +138,24 @@ export const AnimatedTestimonials = ({
                                 className="flex flex-col"
                             >
                                 {/* Name & Designation — ABOVE the quote */}
-                                <div className="mb-8">
-                                    <h3 className="text-2xl font-cinzel font-bold text-gold tracking-wide">
+                                <div className="mb-6 md:mb-8">
+                                    <h3 className="text-xl font-cinzel font-bold tracking-wide text-gold sm:text-2xl">
                                         {testimonials[active].name}
                                     </h3>
-                                    <p className="text-sm font-montserrat uppercase tracking-[0.3em] text-gold/50 mt-1">
+                                    <p className="mt-2 font-montserrat text-[11px] uppercase tracking-[0.26em] text-gold/50 sm:text-sm sm:tracking-[0.3em]">
                                         {testimonials[active].designation}
                                     </p>
                                 </div>
 
                                 {/* Quote */}
-                                <motion.p className="text-xl md:text-2xl font-seasons italic text-muted-gold/90 leading-relaxed">
+                                <motion.p className="font-seasons text-lg italic leading-8 text-muted-gold/90 sm:text-xl md:text-2xl">
                                     &ldquo;{testimonials[active].quote}&rdquo;
                                 </motion.p>
                             </motion.div>
                         </AnimatePresence>
 
                         {/* Circular Navigation Buttons */}
-                        <div className="flex gap-4 pt-12 relative z-50">
+                        <div className="relative z-50 flex justify-center gap-4 pt-10 md:justify-start md:pt-12">
                             <button
                                 onClick={handlePrev}
                                 aria-label="Previous testimonial"

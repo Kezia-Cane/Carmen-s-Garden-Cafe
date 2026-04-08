@@ -39,14 +39,6 @@ const SIGNATURES = [
         callout: "Italian Soul",
         src: "/images/signatures/tiramisu-latte.webp",
     },
-    {
-        id: "black-sunkist",
-        name: "Black Sunkist",
-        price: 140,
-        description: "Bold black espresso meets fresh orange zest. A citrus-forward, zero-sugar awakening.",
-        callout: "Zero Sugar",
-        src: "/images/signatures/black-sunkist.webp",
-    },
 ];
 
 export function SignaturesExplorer() {
