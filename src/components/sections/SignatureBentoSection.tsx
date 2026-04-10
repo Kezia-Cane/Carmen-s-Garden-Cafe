@@ -105,7 +105,7 @@ export function SignatureBentoSection() {
                             style={{ border: 0, minHeight: "400px" }}
                             allowFullScreen
                             loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
+                            referrerPolicy="strict-origin-when-cross-origin"
                             title="Carmen's Garden Cafe Location"
                             className="w-full h-full"
                         />

@@ -12,14 +12,14 @@ const testimonials = [
             "Lami kaayo ang kape diri, mura gyud ug naa ka sa garden retreat. Peaceful ang place ug premium kaayo ang dating.",
         name: "Alyssa Ramos",
         designation: "Weekend Guest from Carmen",
-        src: "/testimonials/alyssa-ramos.svg",
+        src: "/images/paolo.jpeg",
     },
     {
         quote:
             "Bisan first visit pa lang, dali kaayo ma-feel ang warmth sa lugar. Nice ang drinks, nice ang service, ug balik-balikan gyud.",
         name: "Paolo Mendoza",
         designation: "Creative Professional from Butuan",
-        src: "/testimonials/paolo-mendoza.svg",
+        src: "/images/mendoze.jpeg",
     },
 ];
 

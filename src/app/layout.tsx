@@ -15,9 +15,59 @@ const montserrat = Montserrat({
   weight: ["300", "400", "500", "600"],
 });
 
+const getMetadataBase = () => {
+  const envUrl =
+    process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
+    process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim() ||
+    process.env.VERCEL_URL?.trim();
+
+  if (!envUrl) {
+    const localProtocol = process.env.NODE_ENV === "production" ? "https" : "http";
+
+    return new URL(`${localProtocol}://localhost:3000`);
+  }
+
+  const normalizedUrl = envUrl.replace(/^http:\/\//i, "https://");
+
+  return new URL(
+    normalizedUrl.startsWith("http")
+      ? normalizedUrl
+      : `https://${normalizedUrl}`,
+  );
+};
+
+const metadataBase = getMetadataBase();
+
 export const metadata: Metadata = {
   title: "Carmen's Garden Café",
   description: "Cultivated in nature, perfected in glass. Experience the gold standard of craft coffee.",
+  metadataBase,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "Carmen's Garden Café",
+    title: "Carmen's Garden Café",
+    description:
+      "Cultivated in nature, perfected in glass. Experience the gold standard of craft coffee.",
+    images: [
+      {
+        url: "/android-chrome-512x512.png",
+        width: 512,
+        height: 512,
+        alt: "Carmen's Garden Café",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: "Carmen's Garden Café",
+    description:
+      "Cultivated in nature, perfected in glass. Experience the gold standard of craft coffee.",
+    images: ["/android-chrome-512x512.png"],
+  },
   icons: {
     icon: [
       { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
